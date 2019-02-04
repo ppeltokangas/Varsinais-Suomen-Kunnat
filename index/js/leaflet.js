@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    let bounds = kuntaParse("Aura");
+    let bounds = coordinateParse(kuntaLista);//kuntaParse("Aura");
     let lBounds = latLngSwapper(bounds);
+    //console.log(bounds);
 
     let centerPoint = new L.LatLng(60.45, 22.4);
     var mymap = new L.Map('mapid').setView(centerPoint, 8);
@@ -9,10 +10,16 @@ $(document).ready(function() {
     };
     let osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png ', osmOptions);
     osm.addTo(mymap);
+    //console.log(lBounds);
 
-    console.log(kuntaParse("Aura"));
+    //console.log(kuntaParse("Aura"));
+    function drawPoly(bounds, color, map) {
+            let polygon = new L.Polygon(bounds, {color: color}).addTo(map);
+    }
+        //console.log(kuntaNimi);
+        //for (let i = 0; i < )
+    
 
-    let polygon = new L.Polygon(lBounds, {color: 'red'}).addTo(mymap);
-
-    testi("Turku");
+    drawPoly(lBounds, "blue", mymap);
+    //testi("Turku");
 });
