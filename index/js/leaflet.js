@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    let bounds = coordinateParse(kuntaLista);//kuntaParse("Aura");
+    let bounds = coordinateParse(kuntaLista);
+    console.log(bounds);
     let lBounds = latLngSwapper(bounds);
-    //console.log(bounds);
 
     let centerPoint = new L.LatLng(60.45, 22.4);
     var mymap = new L.Map('mapid').setView(centerPoint, 8);
@@ -12,14 +12,9 @@ $(document).ready(function() {
     osm.addTo(mymap);
     //console.log(lBounds);
 
-    //console.log(kuntaParse("Aura"));
-    function drawPoly(bounds, color, map) {
-            let polygon = new L.Polygon(bounds, {color: color}).addTo(map);
+    function drawPoly(bounds, colour, map) {
+        let polygon = new L.Polygon(bounds, {color: colour}).addTo(map);
     }
-        //console.log(kuntaNimi);
-        //for (let i = 0; i < )
-    
 
     drawPoly(lBounds, "blue", mymap);
-    //testi("Turku");
 });

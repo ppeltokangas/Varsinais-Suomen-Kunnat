@@ -1,11 +1,3 @@
-//function kuntaParse(kunnat) {
-//    for (let feature of kuntaInfo.features) {
-//        if (feature.properties.name === kunnat) {
-//            return feature.geometry.coordinates[0];
-//        }
-//    }
-//}
-//
 let kuntaLista = [];
 for (let kunta of kuntaInfo.features) {
     kuntaLista.push(kunta.properties.name);
@@ -13,44 +5,41 @@ for (let kunta of kuntaInfo.features) {
 console.log(JSON.stringify(kuntaLista));
 
 function haeKunta(lista) {
+    //let a = 0;
     let kunta = "";
+    //console.log(lista.length);
     for (let i = 0; i < lista.length; i++) {
         kunta = lista[i];
-        console.log(kunta);
-        break;
-        }    
+        //console.log(lista[i]);
+        console.log("haeKunta() = " + kunta);
+        //a++;
+        break;  
+    }
+    //console.log(a);
+    console.log("@haeKunta exit@");
     return kunta;
 };
 
 function coordinateParse(kunnat) {
-    //let a = haeKunta(kunnat);
-    let coordinates = [];
+    console.log("@coordinateParse@");
     for (let geo of kuntaInfo.features) {
-        console.log("Hop");
         if (geo.properties.name === haeKunta(kunnat) && geo.geometry.type !== "GeometryCollection") {
-            console.log("Hep");
-            //console.log(geo.geometry.coordinates[0]);
+            console.log("@Single polygon@")
             return geo.geometry.coordinates[0];
             }
-        else if (geo.properties.name === haeKunta(kunnat)) {
-            //console.log(geo.geometry.geometries);
-            for (let i = 0; i < geo.geometry.geometries.length; i++) {
-                coordinates[i] = geo.geometry.geometries[i].coordinates[0];
+        else if (geo.properties.name === haeKunta(kunnat) && geo.geometry.type === "GeometryCollection" + console.log("hep")) {
+            for (let i = 0; i < geo.geometry.geometries[i].coordinates.length; i++) {
+                console.log("@Multi Polygon@");
+                return geo.geometry.geometries[i].coordinates[0];
             }
-            //console.log(coordinates);
-            console.log("Hip");
-            return coordinates[0];
-            //console.log(geo.geometry.geometries.length);
-            //console.log(coordinates[0]);
-            //return coordinates;
         }
-    }
-    
+    }  
 }
 
 function latLngSwapper(lonLat) {
-    let latLngs = [];
+    let latLngs = [];    
     for (let i = 0; i < lonLat.length; i++) {
+        console.log("@latLngSwapper@");
         let alkio = new L.LatLng(lonLat[i][1], lonLat[i][0]);
         latLngs.push(alkio);
     }
