@@ -1,4 +1,4 @@
-let kuntaInfo = {
+let geoJsonCollection = {
     "type": "FeatureCollection",
     "features": [
         {
