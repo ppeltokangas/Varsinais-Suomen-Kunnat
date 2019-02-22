@@ -4,8 +4,6 @@ $(document).ready(function() {
         constructor() {
             this.map = undefined;
             this.osm = undefined;
-            this.layer = undefined;
-            this.layerGroup = undefined;
         }
 
         addMap(mapId, centerPoint) {
@@ -35,7 +33,7 @@ $(document).ready(function() {
                         }
                         //lconsole.log(muuttuja.getLayers());
                         muuttuja.addTo(this.map);
-                        break;
+                        //break;
                     }
                     else if (geo.geometry.type === 'Polygon') {
                         //let notGeoColl = new L.LayerGroup();
@@ -45,13 +43,14 @@ $(document).ready(function() {
                         }
                         console.log(taulukko[0]);
                         console.log(taulukko[taulukko.length-1]);
+                        //Poistetaan taulukon viimeinen alkio, koska se on sama kuin ensimmäinen alkio.
                         taulukko.pop();
                     
                         //console.log(taulukko);
                         new L.Polygon(taulukko).addTo(this.map);
                         //notGeoColl.addLayer(new L.Polygon(taulukko)).addTo(this.map);
                         //notGeoColl.addTo(this.map);
-                        break;
+                        //break;
                         //console.log(notGeoColl);
                     }
                 }

@@ -38,16 +38,8 @@
 //}
 
 function latLngSwapper(lonLat) {
-    let latLngs = [];
-        try {
-            //console.log("@latLngSwapper@");
-            let alkio = new L.LatLng(lonLat[1], lonLat[0]);
-            latLngs.push(alkio);
-            //console.log(latLngs + " HEI");
-        return latLngs;
-    }
-    catch (error) {
-        console.error(error);
-    }
+    let alkio = new L.LatLng(lonLat[1], lonLat[0]);
+    return alkio;
 }
+
 
