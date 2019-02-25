@@ -4,8 +4,7 @@ $(document).ready(function() {
         constructor() {
             this.map = undefined;
             this.osm = undefined;
-            this.layers = [];
-            this.layerGroups = {};
+            this.featureGroups = {};
         }
 
         addMap(mapId, centerPoint) {
@@ -22,29 +21,31 @@ $(document).ready(function() {
         }
 
         addLayers() {
-            try {    
+            try {
                 for (let geo of geoJsonCollection.features) {
                     let kuntaNimi = geo.properties.name;
-                    let lGroup = new L.LayerGroup();
+                    let fGroup = new L.FeatureGroup();
                     if (geo.geometry.type === 'GeometryCollection') {
                         for (let polygon of geo.geometry.geometries) {
                             let kuntaPoly = [];
                             for (let coord of polygon.coordinates[0]) {
                                 kuntaPoly.push(latLngSwapper(coord));
                             }
-                            lGroup.addLayer(new L.Polygon(kuntaPoly));
+                            fGroup.addLayer(new L.Polygon(kuntaPoly));
                         }
-                        this.layerGroups[kuntaNimi] = lGroup;
-                        lGroup.addTo(this.map);
+                        fGroup.bindPopup(kuntaNimi);
+                        this.featureGroups[kuntaNimi] = fGroup;
+                        fGroup.addTo(this.map);
                     }
                     else if (geo.geometry.type === 'Polygon') {
                         let kuntaPoly = [];
                         for (let coord of geo.geometry.coordinates[0]) {
                             kuntaPoly.push(latLngSwapper(coord));
                         }
-                        lGroup.addLayer(new L.Polygon(kuntaPoly));
-                        this.layerGroups[kuntaNimi] = lGroup;
-                        lGroup.addTo(this.map);
+                        fGroup.addLayer(new L.Polygon(kuntaPoly));
+                        fGroup.bindPopup(kuntaNimi);
+                        this.featureGroups[kuntaNimi] = fGroup;
+                        fGroup.addTo(this.map);
                     }
                 }
             }
@@ -57,11 +58,12 @@ $(document).ready(function() {
     function latLngSwapper(lonLat) {
         let alkio = new L.LatLng(lonLat[1], lonLat[0]);
         return alkio;
-    }    
+    }
 
     let kunnat = new Kunnat();
     kunnat.addMap('mapid', new L.LatLng(60.45, 22.4));
     kunnat.addOsm();
     kunnat.addLayers();
-    console.log(kunnat.layerGroups);
+
+    console.log(kunnat.featureGroups);
 });
